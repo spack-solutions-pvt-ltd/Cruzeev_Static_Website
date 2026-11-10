@@ -10,33 +10,90 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as RefundCancellationPolicyRouteImport } from './routes/refund-cancellation-policy'
+import { Route as ShippingDeliveryPolicyRouteImport } from './routes/shipping-delivery-policy'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundCancellationPolicyRoute =
+  RefundCancellationPolicyRouteImport.update({
+    id: '/refund-cancellation-policy',
+    path: '/refund-cancellation-policy',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ShippingDeliveryPolicyRoute = ShippingDeliveryPolicyRouteImport.update({
+  id: '/shipping-delivery-policy',
+  path: '/shipping-delivery-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-cancellation-policy': typeof RefundCancellationPolicyRoute
+  '/shipping-delivery-policy': typeof ShippingDeliveryPolicyRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-cancellation-policy': typeof RefundCancellationPolicyRoute
+  '/shipping-delivery-policy': typeof ShippingDeliveryPolicyRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-cancellation-policy': typeof RefundCancellationPolicyRoute
+  '/shipping-delivery-policy': typeof ShippingDeliveryPolicyRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/privacy-policy'
+    | '/refund-cancellation-policy'
+    | '/shipping-delivery-policy'
+    | '/terms-and-conditions'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/privacy-policy'
+    | '/refund-cancellation-policy'
+    | '/shipping-delivery-policy'
+    | '/terms-and-conditions'
+  id:
+    | '__root__'
+    | '/'
+    | '/privacy-policy'
+    | '/refund-cancellation-policy'
+    | '/shipping-delivery-policy'
+    | '/terms-and-conditions'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  RefundCancellationPolicyRoute: typeof RefundCancellationPolicyRoute
+  ShippingDeliveryPolicyRoute: typeof ShippingDeliveryPolicyRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +105,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-cancellation-policy': {
+      id: '/refund-cancellation-policy'
+      path: '/refund-cancellation-policy'
+      fullPath: '/refund-cancellation-policy'
+      preLoaderRoute: typeof RefundCancellationPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shipping-delivery-policy': {
+      id: '/shipping-delivery-policy'
+      path: '/shipping-delivery-policy'
+      fullPath: '/shipping-delivery-policy'
+      preLoaderRoute: typeof ShippingDeliveryPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  RefundCancellationPolicyRoute: RefundCancellationPolicyRoute,
+  ShippingDeliveryPolicyRoute: ShippingDeliveryPolicyRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
