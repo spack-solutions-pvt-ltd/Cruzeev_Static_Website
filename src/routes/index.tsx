@@ -32,11 +32,11 @@ export const Route = createFileRoute("/")({
 
 type Item = { icon: LucideIcon; title: string; text: string };
 
-function Eyebrow({ children, dark }: { children: string; dark?: boolean }) {
+function Eyebrow({ children, dark }: { children: string; dark?: boolean | undefined }) {
   return <p className={`text-xs font-semibold uppercase tracking-[0.2em] ${dark ? "text-primary" : "text-primary-deep"}`}>{children}</p>;
 }
 
-function SectionHead({ eyebrow, title, text, dark }: { eyebrow: string; title: string; text?: string; dark?: boolean }) {
+function SectionHead({ eyebrow, title, text, dark }: { eyebrow: string; title: string; text?: string; dark?: boolean | undefined }) {
   return (
     <Reveal className="mx-auto max-w-2xl text-center">
       <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
@@ -62,7 +62,7 @@ function CardGrid({ items, dark, cols = "lg:grid-cols-3" }: { items: Item[]; dar
   );
 }
 
-function Steps({ steps, dark }: { steps: Item[]; dark?: boolean }) {
+function Steps({ steps, dark }: { steps: Item[]; dark?: boolean | undefined }) {
   return (
     <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {steps.map((s, i) => (

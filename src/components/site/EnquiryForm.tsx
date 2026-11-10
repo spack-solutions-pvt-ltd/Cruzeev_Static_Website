@@ -26,7 +26,7 @@ export function EnquiryForm({ fields, submitLabel, successText }: { fields: Fiel
       const v = (data[f.name] ?? "").trim();
       if (f.required && !v) errs[f.name] = `${f.label} is required`;
       else if (v && f.type && validators[f.type]) {
-        const m = validators[f.type](v);
+        const m = validators[f.type]?.(v) ?? null;
         if (m) errs[f.name] = m;
       } else if (v.length > 1000) errs[f.name] = "Too long";
     }
