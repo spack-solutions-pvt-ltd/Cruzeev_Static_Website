@@ -1,7 +1,10 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "@tanstack/react-router";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/cruzeev-logo.webp.asset.json";
 import { NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -10,7 +13,7 @@ export function scrollToSection(id: string) {
 }
 
 export function SiteHeader() {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -55,7 +58,7 @@ export function SiteHeader() {
         </a>
       );
     return (
-      <Link to="/" hash={id} className={cls} onClick={() => setOpen(false)}>
+      <Link href={`/#${id}`} className={cls} onClick={() => setOpen(false)}>
         {label}
       </Link>
     );
@@ -69,8 +72,15 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-20 md:px-8">
-        <Link to="/" aria-label="CRUZE ev home" className="shrink-0">
-          <img src={logo.url} alt="CRUZE ev" width={1920} height={576} className="h-9 w-auto md:h-11" />
+        <Link href="/" aria-label="CRUZE ev home" className="shrink-0">
+          <Image
+            src="/cruzeev-logo.webp"
+            alt="CRUZE ev"
+            width={1920}
+            height={576}
+            priority
+            className="h-9 w-auto md:h-11"
+          />
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
           {NAV.map((n) => (

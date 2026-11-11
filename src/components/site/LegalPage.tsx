@@ -1,4 +1,5 @@
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import type { LegalDoc } from "@/lib/legal-content";
 import { SiteHeader } from "./SiteHeader";
@@ -12,7 +13,7 @@ export function LegalPage({ doc }: { doc: LegalDoc }) {
       <SiteHeader />
       <main className="bg-surface pt-28 pb-20">
         <div className="mx-auto max-w-6xl px-5 md:px-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-deep hover:text-primary">
+          <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-deep hover:text-primary">
             <ArrowLeft className="h-4 w-4" /> Back to Home
           </Link>
           <h1 className="mt-6 text-3xl font-bold tracking-tight md:text-5xl">{doc.title}</h1>
@@ -47,7 +48,8 @@ export function LegalPage({ doc }: { doc: LegalDoc }) {
                       <strong>JCD ELECTRIC PRIVATE LIMITED</strong><br />
                       1-10/ACS/D/2007, Nallagandla Tellapur Road,<br />
                       Hyderabad, Rangareddy, Telangana - 500019<br />
-                      Email: <a className="text-primary-deep hover:underline" href="mailto:support@cruzeev.in">support@cruzeev.in</a> | Phone: <a className="text-primary-deep hover:underline" href="tel:+917989048025">7989048025</a>
+                      Email: <a className="text-primary-deep hover:underline" href="mailto:support@cruzeev.in">support@cruzeev.in</a> 
+                      {/* | Phone: <a className="text-primary-deep hover:underline" href="tel:+917989048025">7989048025</a> */}
                     </address>
                   )}
                 </section>
@@ -61,15 +63,21 @@ export function LegalPage({ doc }: { doc: LegalDoc }) {
   );
 }
 
-export const legalHead = (title: string, path: string, desc: string) => ({
-  meta: [
-    { title: `${title} | CRUZE ev` },
-    { name: "description", content: desc },
-    { property: "og:title", content: `${title} | CRUZE ev` },
-    { property: "og:description", content: desc },
-    { property: "og:type", content: "article" },
-    { property: "og:url", content: path },
-    { name: "twitter:card", content: "summary" },
-  ],
-  links: [{ rel: "canonical", href: path }],
-});
+export function getLegalMetadata(title: string, path: string, description: string): Metadata {
+  return {
+    title: `${title} | CRUZE ev`,
+    description,
+    openGraph: {
+      title: `${title} | CRUZE ev`,
+      description,
+      type: "article",
+      url: path,
+    },
+    twitter: {
+      card: "summary",
+    },
+    alternates: {
+      canonical: path,
+    },
+  };
+}

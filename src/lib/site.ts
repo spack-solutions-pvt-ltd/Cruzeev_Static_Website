@@ -1,10 +1,13 @@
 export const SITE = {
   brand: "CRUZE ev",
-  email: "support@cruzeev.in",
-  phone: "7989048025",
+  // email: "support@cruzeev.in",
+  email: "lakshmi@spackdigi.com",
+  phone: "+91–7989048025",
   supportHours: "Mon – Sun, 9:00 AM – 9:00 PM", // editable placeholder
   legalEntity: "JCD ELECTRIC PRIVATE LIMITED",
 };
+
+export const site = SITE;
 
 export const NAV = [
   { id: "home", label: "Home" },
