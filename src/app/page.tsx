@@ -542,7 +542,7 @@ export default function Home() {
               <Reveal delay={100}>
                 <EnquiryForm
                   submitLabel="Send message"
-                  successText="Thanks for reaching out — we'll reply within one business day."
+                  successText="Thanks for reaching out — we'll reply shortly."
                   fields={[
                     { name: "name", label: "Name", required: true },
                     { name: "email", label: "Email", type: "email", required: true },

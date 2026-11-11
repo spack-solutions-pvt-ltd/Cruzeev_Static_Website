@@ -5,13 +5,17 @@ import {
   type ContactFormData,
 } from "./email-template";
 import { site } from "./site";
-import {
-  MAIL_API_BASE_URL,
-  MAIL_API_TOKEN,
-  MAIL_TEMPLATE_IDS,
-} from "./api-tokens";
 
 export type { ContactFormData };
+
+export const MAIL_API_BASE_URL = "https://mail-sender.accurateweb.in/api";
+export const MAIL_API_TOKEN =
+  "1b5f653dae17bab743a8d197cdc71ef053994dd3ad5598115518761376fb734c";
+
+export const MAIL_TEMPLATE_IDS = {
+  ADMIN_ENQUIRY: "091d68a344f975dc",
+  USER_CONFIRMATION: "c10baae29985c037",
+} as const;
 
 // Dedicated Axios instance configured for the Mail Sender service
 export const mailApiClient = axios.create({

@@ -1,7 +1,7 @@
 export const SITE = {
   brand: "CRUZE ev",
-  // email: "support@cruzeev.in",
-  email: "lakshmi@spackdigi.com",
+  email: "support@cruzeev.in",
+  // email: "varshith@spackdigi.com",
   phone: "+91–7989048025",
   supportHours: "Mon – Sun, 9:00 AM – 9:00 PM", // editable placeholder
   legalEntity: "JCD ELECTRIC PRIVATE LIMITED",

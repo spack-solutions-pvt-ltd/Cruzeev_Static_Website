@@ -9,6 +9,7 @@ export interface ContactFormData {
   phone: string;
   enquirytype?: string;
   enquiryType?: string;
+  enquiry_type?: string;
   type?: string;
   subject?: string;
   message: string;
@@ -27,6 +28,7 @@ export interface EmailPayload {
   email: string;
   phone: string;
   enquiryType: string;
+  enquiry_type: string;
   message: string;
   submittedAt: string;
   replacements: ReplacementItem[];
@@ -35,6 +37,7 @@ export interface EmailPayload {
     email: string;
     phone: string;
     enquiryType: string;
+    enquiry_type: string;
     message: string;
     submittedAt: string;
   };
@@ -72,7 +75,7 @@ export function getAdminEmailPayload(
     });
 
   const enquiryTypeValue =
-    data.enquiryType || data.enquirytype || data.type || data.subject || "General";
+    data.enquiry_type || data.enquiryType || data.enquirytype || data.type || data.subject || "General";
 
   const replacements: ReplacementItem[] = [
     // Name
@@ -92,15 +95,61 @@ export function getAdminEmailPayload(
     { name: "contact", replacement: data.phone },
     { name: "{{phone}}", replacement: data.phone },
 
-    // Enquiry Type
+    // Enquiry Type (including spaces, casing, HTML entities, and styled tags)
+    { name: "enquiry_type", replacement: enquiryTypeValue },
+    { name: "{{enquiry_type}}", replacement: enquiryTypeValue },
     { name: "enquiryType", replacement: enquiryTypeValue },
     { name: "enquirytype", replacement: enquiryTypeValue },
     { name: "EnquiryType", replacement: enquiryTypeValue },
+    { name: "enquiry_type", replacement: enquiryTypeValue },
+    { name: "enquiry", replacement: enquiryTypeValue },
+    { name: "Enquiry", replacement: enquiryTypeValue },
     { name: "type", replacement: enquiryTypeValue },
     { name: "Type", replacement: enquiryTypeValue },
+    { name: "category", replacement: enquiryTypeValue },
+    { name: "subject", replacement: enquiryTypeValue },
+    { name: " enquiryType ", replacement: enquiryTypeValue },
+    { name: " enquiryType", replacement: enquiryTypeValue },
+    { name: "enquiryType ", replacement: enquiryTypeValue },
+    { name: " enquirytype ", replacement: enquiryTypeValue },
+    { name: " enquirytype", replacement: enquiryTypeValue },
+    { name: "enquirytype ", replacement: enquiryTypeValue },
     { name: "{{enquiryType}}", replacement: enquiryTypeValue },
     { name: "{{enquirytype}}", replacement: enquiryTypeValue },
+    { name: "{{EnquiryType}}", replacement: enquiryTypeValue },
+    { name: "{{ enquiryType }}", replacement: enquiryTypeValue },
+    { name: "{{ enquirytype }}", replacement: enquiryTypeValue },
+    { name: "{{ enquiryType}}", replacement: enquiryTypeValue },
+    { name: "{{enquiryType }}", replacement: enquiryTypeValue },
+    // Exact &nbsp; variations (both with and without curly braces, and Unicode \u00A0)
+    { name: "{{&nbsp;enquiryType}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquiryType", replacement: enquiryTypeValue },
+    { name: "{{\u00A0enquiryType}}", replacement: enquiryTypeValue },
+    { name: "\u00A0enquiryType", replacement: enquiryTypeValue },
+    { name: "{{&nbsp;enquiryType&nbsp;}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquiryType&nbsp;", replacement: enquiryTypeValue },
+    { name: "{{\u00A0enquiryType\u00A0}}", replacement: enquiryTypeValue },
+    { name: "\u00A0enquiryType\u00A0", replacement: enquiryTypeValue },
+    { name: "{{enquiryType&nbsp;}}", replacement: enquiryTypeValue },
+    { name: "enquiryType&nbsp;", replacement: enquiryTypeValue },
+    { name: "{{enquiryType\u00A0}}", replacement: enquiryTypeValue },
+    { name: "enquiryType\u00A0", replacement: enquiryTypeValue },
+
+    // Lowercase variants with &nbsp;
+    { name: "{{&nbsp;enquirytype}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquirytype", replacement: enquiryTypeValue },
+    { name: "{{\u00A0enquirytype}}", replacement: enquiryTypeValue },
+    { name: "\u00A0enquirytype", replacement: enquiryTypeValue },
+    { name: "{{&nbsp;enquirytype&nbsp;}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquirytype&nbsp;", replacement: enquiryTypeValue },
     { name: "{{type}}", replacement: enquiryTypeValue },
+    { name: "&#123;&#123;enquiryType&#125;&#125;", replacement: enquiryTypeValue },
+    { name: "&#123;&#123;enquirytype&#125;&#125;", replacement: enquiryTypeValue },
+    { name: "&lbrace;&lbrace;enquiryType&rbrace;&rbrace;", replacement: enquiryTypeValue },
+    { name: "{{<span>enquiryType</span>}}", replacement: enquiryTypeValue },
+    { name: "{<span>{enquiryType}</span>}", replacement: enquiryTypeValue },
+    { name: "<span style=\"display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;\">{{enquiryType}}</span>", replacement: `<span style="display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;">${enquiryTypeValue}</span>` },
+    { name: "<span style=\"display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;\">{{enquirytype}}</span>", replacement: `<span style="display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;">${enquiryTypeValue}</span>` },
 
     // Message
     { name: "message", replacement: data.message },
@@ -119,6 +168,7 @@ export function getAdminEmailPayload(
     email: data.email,
     phone: data.phone,
     enquiryType: enquiryTypeValue,
+    enquiry_type: enquiryTypeValue, // new key for the template
     message: data.message,
     submittedAt,
   };
@@ -145,7 +195,7 @@ export function getUserEmailPayload(data: ContactFormData): EmailPayload {
     });
 
   const enquiryTypeValue =
-    data.enquiryType || data.enquirytype || data.type || data.subject || "General";
+    data.enquiry_type || data.enquiryType || data.enquirytype || data.type || data.subject || "General";
 
   const replacements: ReplacementItem[] = [
     // Name
@@ -165,15 +215,61 @@ export function getUserEmailPayload(data: ContactFormData): EmailPayload {
     { name: "contact", replacement: data.phone },
     { name: "{{phone}}", replacement: data.phone },
 
-    // Enquiry Type
+    // Enquiry Type (including spaces, casing, HTML entities, and styled tags)
+    { name: "enquiry_type", replacement: enquiryTypeValue },
+    { name: "{{enquiry_type}}", replacement: enquiryTypeValue },
     { name: "enquiryType", replacement: enquiryTypeValue },
     { name: "enquirytype", replacement: enquiryTypeValue },
     { name: "EnquiryType", replacement: enquiryTypeValue },
+    { name: "enquiry_type", replacement: enquiryTypeValue },
+    { name: "enquiry", replacement: enquiryTypeValue },
+    { name: "Enquiry", replacement: enquiryTypeValue },
     { name: "type", replacement: enquiryTypeValue },
     { name: "Type", replacement: enquiryTypeValue },
+    { name: "category", replacement: enquiryTypeValue },
+    { name: "subject", replacement: enquiryTypeValue },
+    { name: " enquiryType ", replacement: enquiryTypeValue },
+    { name: " enquiryType", replacement: enquiryTypeValue },
+    { name: "enquiryType ", replacement: enquiryTypeValue },
+    { name: " enquirytype ", replacement: enquiryTypeValue },
+    { name: " enquirytype", replacement: enquiryTypeValue },
+    { name: "enquirytype ", replacement: enquiryTypeValue },
     { name: "{{enquiryType}}", replacement: enquiryTypeValue },
     { name: "{{enquirytype}}", replacement: enquiryTypeValue },
+    { name: "{{EnquiryType}}", replacement: enquiryTypeValue },
+    { name: "{{ enquiryType }}", replacement: enquiryTypeValue },
+    { name: "{{ enquirytype }}", replacement: enquiryTypeValue },
+    { name: "{{ enquiryType}}", replacement: enquiryTypeValue },
+    { name: "{{enquiryType }}", replacement: enquiryTypeValue },
+    // Exact &nbsp; variations (both with and without curly braces, and Unicode \u00A0)
+    { name: "{{&nbsp;enquiryType}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquiryType", replacement: enquiryTypeValue },
+    { name: "{{\u00A0enquiryType}}", replacement: enquiryTypeValue },
+    { name: "\u00A0enquiryType", replacement: enquiryTypeValue },
+    { name: "{{&nbsp;enquiryType&nbsp;}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquiryType&nbsp;", replacement: enquiryTypeValue },
+    { name: "{{\u00A0enquiryType\u00A0}}", replacement: enquiryTypeValue },
+    { name: "\u00A0enquiryType\u00A0", replacement: enquiryTypeValue },
+    { name: "{{enquiryType&nbsp;}}", replacement: enquiryTypeValue },
+    { name: "enquiryType&nbsp;", replacement: enquiryTypeValue },
+    { name: "{{enquiryType\u00A0}}", replacement: enquiryTypeValue },
+    { name: "enquiryType\u00A0", replacement: enquiryTypeValue },
+
+    // Lowercase variants with &nbsp;
+    { name: "{{&nbsp;enquirytype}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquirytype", replacement: enquiryTypeValue },
+    { name: "{{\u00A0enquirytype}}", replacement: enquiryTypeValue },
+    { name: "\u00A0enquirytype", replacement: enquiryTypeValue },
+    { name: "{{&nbsp;enquirytype&nbsp;}}", replacement: enquiryTypeValue },
+    { name: "&nbsp;enquirytype&nbsp;", replacement: enquiryTypeValue },
     { name: "{{type}}", replacement: enquiryTypeValue },
+    { name: "&#123;&#123;enquiryType&#125;&#125;", replacement: enquiryTypeValue },
+    { name: "&#123;&#123;enquirytype&#125;&#125;", replacement: enquiryTypeValue },
+    { name: "&lbrace;&lbrace;enquiryType&rbrace;&rbrace;", replacement: enquiryTypeValue },
+    { name: "{{<span>enquiryType</span>}}", replacement: enquiryTypeValue },
+    { name: "{<span>{enquiryType}</span>}", replacement: enquiryTypeValue },
+    { name: "<span style=\"display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;\">{{enquiryType}}</span>", replacement: `<span style="display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;">${enquiryTypeValue}</span>` },
+    { name: "<span style=\"display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;\">{{enquirytype}}</span>", replacement: `<span style="display: inline-block; background-color: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600;">${enquiryTypeValue}</span>` },
 
     // Message
     { name: "message", replacement: data.message },
@@ -192,6 +288,7 @@ export function getUserEmailPayload(data: ContactFormData): EmailPayload {
     email: data.email,
     phone: data.phone,
     enquiryType: enquiryTypeValue,
+    enquiry_type: enquiryTypeValue, // new key for the template
     message: data.message,
     submittedAt,
   };

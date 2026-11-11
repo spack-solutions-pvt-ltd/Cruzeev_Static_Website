@@ -62,6 +62,7 @@ export function EnquiryForm({
     if (Object.keys(errs).length) return;
 
     const enquiryTypeValue = (
+      data.enquiry_type ??
       data.enquirytype ??
       data.enquiryType ??
       data.subject ??
@@ -74,6 +75,7 @@ export function EnquiryForm({
       phone: (data.phone ?? "").trim(),
       enquirytype: enquiryTypeValue,
       enquiryType: enquiryTypeValue,
+      enquiry_type: enquiryTypeValue,
       message: (data.message ?? "").trim(),
     };
 
