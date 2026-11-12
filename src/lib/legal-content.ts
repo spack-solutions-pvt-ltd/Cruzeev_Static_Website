@@ -5,7 +5,7 @@ export type LegalDoc = { title: string; intro: string[]; sections: LegalSection[
 const E = "support@cruzeev.in";
 const ISSUED = (doc: string) => `This ${doc} is issued by JCD ELECTRIC PRIVATE LIMITED (operating the brand CRUZE ev).`;
 
-export const LEGAL: Record<"terms" | "privacy" | "shipping" | "refund", LegalDoc> = {
+export const LEGAL: Record<"terms" | "privacy" | "shipping" | "refund" |"delete_account", LegalDoc> = {
   terms: {
     title: "Terms & Conditions",
     intro: [
@@ -62,6 +62,18 @@ export const LEGAL: Record<"terms" | "privacy" | "shipping" | "refund", LegalDoc
   refund: {
     title: "Refund & Cancellation Policy",
     intro: [ISSUED("Refund & Cancellation Policy"), "At JCD ELECTRIC PRIVATE LIMITED, we strive to provide our customers with a smooth and transparent experience at every step of their EV charging journey. However, we understand that plans may change, and you may need to cancel or refund at any time."],
+    sections: [
+      { title: "Introduction", body: ["At CRUZE ev (operated by JCD ELECTRIC PRIVATE LIMITED), we are dedicated to providing seamless EV charging across our network and customer satisfaction. This Refund and Cancellation Policy outlines the conditions under which cancellations, returns, and refunds are processed for our digital charging services, wallet recharges, and physical products."] },
+      { title: "Cancellation Policy", body: ["You may cancel your EV charging booking at any time. Please note that a Cancellation or Convenience Fee may apply, as detailed below:", { list: ["The applicable fee will be displayed at the time of cancellation on the CRUZE ev App or website.", "Pre-Authorization & Hold Releases: Any temporary hold or pre-authorized amount exceeding the final session cost is automatically released back to your original payment method or wallet upon session completion.", "Failed Initiations: If your account is debited but charging fails to initiate due to connector lock issues or network timeout, the entire amount will be refunded automatically.", `Disputed Sessions: If you believe a session was incorrectly billed, report the session ID to ${E} within 7 days for investigation and adjustment.`] }] },
+      { title: "Fees & Conditions", body: ["Cancellation or Convenience Fees will apply under the following circumstances:", { list: ["If you cancel your booking after it has been confirmed.", "If you reschedule your booking after it has been confirmed. However, if the charging rate changes for the new time slot, the updated rate will apply."] }] },
+      { title: "How to Cancel Your Booking", body: ["Follow the following steps for cancellation of your respective booking:", { list: ["Login to the CRUZE ev App", "Go to Main Menu → My Bookings", "Click the ‘X’ icon next to the booking you wish to cancel", "Confirm cancellation and you’ll receive an SMS confirmation"] }] },
+      { title: "Refund Process", body: ["Once a refund is approved by CRUZE ev:", { list: ["Refunds for cancelled bookings are processed within 24–48 hours.", "Once processed, the refund amount will be credited to your CRUZE ev Wallet [To be updated] within 24 hours.", "You will be notified of your refund status via email and SMS."] }, "JCD ELECTRIC PRIVATE LIMITED ensures full transparency in all transactions. By proceeding with any booking, you acknowledge and agree to the terms outlined in this Cancellation, Reschedule, and Refund Policy."] },
+      { title: "Contact Us", body: ["If you have any questions or require support regarding refunds, cancellations, or billing discrepancies, please get in touch with us:"], address: true },
+    ],
+  },
+  delete_account: {
+    title: "Delete Account",
+    intro: [ISSUED("Delete Account"), "At JCD ELECTRIC PRIVATE LIMITED, we strive to provide our customers with a smooth and transparent experience at every step of their EV charging journey. However, we understand that plans may change, and you may need to cancel or refund at any time."],
     sections: [
       { title: "Introduction", body: ["At CRUZE ev (operated by JCD ELECTRIC PRIVATE LIMITED), we are dedicated to providing seamless EV charging across our network and customer satisfaction. This Refund and Cancellation Policy outlines the conditions under which cancellations, returns, and refunds are processed for our digital charging services, wallet recharges, and physical products."] },
       { title: "Cancellation Policy", body: ["You may cancel your EV charging booking at any time. Please note that a Cancellation or Convenience Fee may apply, as detailed below:", { list: ["The applicable fee will be displayed at the time of cancellation on the CRUZE ev App or website.", "Pre-Authorization & Hold Releases: Any temporary hold or pre-authorized amount exceeding the final session cost is automatically released back to your original payment method or wallet upon session completion.", "Failed Initiations: If your account is debited but charging fails to initiate due to connector lock issues or network timeout, the entire amount will be refunded automatically.", `Disputed Sessions: If you believe a session was incorrectly billed, report the session ID to ${E} within 7 days for investigation and adjustment.`] }] },

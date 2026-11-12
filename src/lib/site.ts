@@ -19,6 +19,7 @@ export const NAV = [
 export const LEGAL_LINKS = [
   { to: "/terms-and-conditions", label: "Terms & Conditions" },
   { to: "/privacy-policy", label: "Privacy Policy" },
+  { to: "/delete-account", label: "Delete Account" },
   { to: "/shipping-delivery-policy", label: "Shipping & Delivery Policy" },
   { to: "/refund-cancellation-policy", label: "Refund & Cancellation Policy" },
 ] as const;
